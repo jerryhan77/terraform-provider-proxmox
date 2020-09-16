@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	pxapi "github.com/Telmate/proxmox-api-go/proxmox"
+	pxapi "github.com/jerryhan77/proxmox-api-go/proxmox"
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
@@ -455,6 +455,10 @@ func resourceVmQemu() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"citype": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"searchdomain": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -548,6 +552,7 @@ func resourceVmQemuCreate(d *schema.ResourceData, meta interface{}) error {
 		CIuser:       d.Get("ciuser").(string),
 		CIpassword:   d.Get("cipassword").(string),
 		CIcustom:     d.Get("cicustom").(string),
+		CItype:       d.Get("citype").(string),
 		Searchdomain: d.Get("searchdomain").(string),
 		Nameserver:   d.Get("nameserver").(string),
 		Sshkeys:      d.Get("sshkeys").(string),
@@ -759,6 +764,7 @@ func resourceVmQemuUpdate(d *schema.ResourceData, meta interface{}) error {
 		CIuser:       d.Get("ciuser").(string),
 		CIpassword:   d.Get("cipassword").(string),
 		CIcustom:     d.Get("cicustom").(string),
+		CItype:       d.Get("citype").(string),
 		Searchdomain: d.Get("searchdomain").(string),
 		Nameserver:   d.Get("nameserver").(string),
 		Sshkeys:      d.Get("sshkeys").(string),
@@ -873,6 +879,7 @@ func resourceVmQemuRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("ciuser", config.CIuser)
 	d.Set("cipassword", config.CIpassword)
 	d.Set("cicustom", config.CIcustom)
+	d.Set("citype", config.CItype)
 	d.Set("searchdomain", config.Searchdomain)
 	d.Set("nameserver", config.Nameserver)
 	d.Set("sshkeys", config.Sshkeys)
